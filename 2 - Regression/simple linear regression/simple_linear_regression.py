@@ -41,4 +41,14 @@ plt.plot(X_train, regressor.predict(X_train), color = 'blue')
 plt.title('Salary vs Experience (Training set)') # Title of plot
 plt.xlabel('Years of experience') # x label
 plt.ylabel('Salary')# y label
-plt.show() # To expecify that is the end of the plot
+plt.show() # To expecify that is the end of the plot and want to show it
+
+# Visualizing the Test set results
+# We will use the matplotlib
+plt.scatter(X_test, y_test, color = 'red')
+# We want the predictions of the train set to compare 
+plt.plot(X_train, regressor.predict(X_train), color = 'blue') 
+plt.title('Salary vs Experience (Test set)') # Title of plot
+plt.xlabel('Years of experience') # x label
+plt.ylabel('Salary')# y label
+plt.show() # To expecify that is the end of the plot and want to show it
