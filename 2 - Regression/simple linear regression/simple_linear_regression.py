@@ -30,4 +30,15 @@ regressor.fit(X_train, y_train) # Fits the regressor object to the trainning set
 
 # Now our Simple Linear Regressor has 'learnt' the correlations and can predict
 # Predicting the Test set results.
-y_pred  =  vector of predictions of the dependent variable
+# vector of predictions of the dependent variable
+y_pred = regressor.predict(X_test) # Method that makes the predictions 
+
+# Visualizing the Training set results
+# We will use the matplotlib
+plt.scatter(X_train, y_train, color = 'red')
+# We want the predictions of the train set to compare 
+plt.plot(X_train, regressor.predict(X_train), color = 'blue') 
+plt.title('Salary vs Experience (Training set)') # Title of plot
+plt.xlabel('Years of experience') # x label
+plt.ylabel('Salary')# y label
+plt.show() # To expecify that is the end of the plot
