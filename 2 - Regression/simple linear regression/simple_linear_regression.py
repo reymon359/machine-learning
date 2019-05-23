@@ -27,3 +27,7 @@ X_test = sc_X.transform(X_test)"""
 from sklearn.linear_model import LinearRegression
 regressor = LinearRegression() # Creating an object of that class
 regressor.fit(X_train, y_train) # Fits the regressor object to the trainning set
+
+# Now our Simple Linear Regressor has 'learnt' the correlations and can predict
+# Predicting the Test set results.
+y_pred  =  vector of predictions of the dependent variable
