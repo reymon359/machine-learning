@@ -54,9 +54,23 @@ X = np.append(arr = np.ones((50, 1)).astype(int), values = X, axis = 1)
 X_opt = X[:, [0, 1, 2, 3, 4, 5]]
 regresor_OLS = sm.OLS(endog = y, exog = X_opt).fit()  
 # Now we will get for each independent variable its Pvalue that we will compare 
-# to the significant level to decide if we leave it or remove it from the model
+# to the significant level (0.05) to decide if we leave it or remove it from the model
+# If it is greater we remove it
 regresor_OLS.summary() # Seems like the x2 has the highest value (0.990) so we remove it and keep on
 
 X_opt = X[:, [0, 1, 3, 4, 5]]
 regresor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
-regresor_OLS.summary()
+regresor_OLS.summary() # Now it is the x1 (0.940)
+
+X_opt = X[:, [0, 3, 4, 5]]
+regresor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regresor_OLS.summary() # Now the x2 (0.602) which refers to the 4 column
+
+X_opt = X[:, [0, 3, 5]]
+regresor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regresor_OLS.summary() # Now the x2 (0.060) which refers to the 5 column
+
+X_opt = X[:, [0, 3]]
+regresor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regresor_OLS.summary() # Done, now none has a Pvalue above 0.05 so the most 
+# significant variable in our model is the 3rd one.
