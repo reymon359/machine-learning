@@ -1,6 +1,5 @@
 # Multiple Linear Regression
 
-
 # Importing the libraries
 import numpy as np #  To work with mathematical numbers.
 import matplotlib.pyplot as plt #  To work with plots
@@ -40,4 +39,7 @@ X_test = sc_X.transform(X_test)"""
 # Fitting Multiple Linear Regression to the Training set
 from sklearn.linear_model import LinearRegression
 regressor = LinearRegression() # We create a regressor object
-regressor.fit(X_train, y_train) # We fit it
+regressor.fit(X_train, y_train) # We fit it in the training set
+
+# Predicting the Test set results
+y_pred = regressor.predict(X_test)
