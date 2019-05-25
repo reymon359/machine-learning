@@ -50,3 +50,13 @@ y_pred = regressor.predict(X_test)
 import statsmodels.formula.api as sm
 # We need to add an extra independent variable to use the library (column of 50x1)
 X = np.append(arr = np.ones((50, 1)).astype(int), values = X, axis = 1) 
+# Now we will create the optimal Matrix with all the possible predictors
+X_opt = X[:, [0, 1, 2, 3, 4, 5]]
+regresor_OLS = sm.OLS(endog = y, exog = X_opt).fit()  
+# Now we will get for each independent variable its Pvalue that we will compare 
+# to the significant level to decide if we leave it or remove it from the model
+regresor_OLS.summary() # Seems like the x2 has the highest value (0.990) so we remove it and keep on
+
+X_opt = X[:, [0, 1, 3, 4, 5]]
+regresor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regresor_OLS.summary()
