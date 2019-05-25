@@ -73,4 +73,56 @@ regresor_OLS.summary() # Now the x2 (0.060) which refers to the 5 column
 X_opt = X[:, [0, 3]]
 regresor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
 regresor_OLS.summary() # Done, now none has a Pvalue above 0.05 so the most 
-# significant variable in our model is the 3rd one.
+# significant variable in our model  is the 3rd one.
+
+
+# Automatic Backward Elimination
+# In case we want to do the above problem automatically
+
+# Backward Elimination with p-values only 
+import statsmodels.formula.api as sm
+def backwardElimination(x, sl):
+    numVars = len(x[0])
+    for i in range(0, numVars):
+        regressor_OLS = sm.OLS(y, x).fit()
+        maxVar = max(regressor_OLS.pvalues).astype(float)
+        if maxVar > sl:
+            for j in range(0, numVars - i):
+                if (regressor_OLS.pvalues[j].astype(float) == maxVar):
+                    x = np.delete(x, j, 1)
+    regressor_OLS.summary()
+    return x
+ 
+SL = 0.05
+X_opt = X[:, [0, 1, 2, 3, 4, 5]]
+X_Modeled = backwardElimination(X_opt, SL)
+
+# Backward Elimination with p-values and Adjusted R Squared
+import statsmodels.formula.api as sm
+def backwardElimination(x, SL):
+    numVars = len(x[0])
+    temp = np.zeros((50,6)).astype(int)
+    for i in range(0, numVars):
+        regressor_OLS = sm.OLS(y, x).fit()
+        maxVar = max(regressor_OLS.pvalues).astype(float)
+        adjR_before = regressor_OLS.rsquared_adj.astype(float)
+        if maxVar > SL:
+            for j in range(0, numVars - i):
+                if (regressor_OLS.pvalues[j].astype(float) == maxVar):
+                    temp[:,j] = x[:, j]
+                    x = np.delete(x, j, 1)
+                    tmp_regressor = sm.OLS(y, x).fit()
+                    adjR_after = tmp_regressor.rsquared_adj.astype(float)
+                    if (adjR_before >= adjR_after):
+                        x_rollback = np.hstack((x, temp[:,[0,j]]))
+                        x_rollback = np.delete(x_rollback, j, 1)
+                        print (regressor_OLS.summary())
+                        return x_rollback
+                    else:
+                        continue
+    regressor_OLS.summary()
+    return x
+ 
+SL = 0.05
+X_opt = X[:, [0, 1, 2, 3, 4, 5]]
+X_Modeled = backwardElimination(X_opt, SL)
