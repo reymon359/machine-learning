@@ -75,7 +75,7 @@ regresor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
 regresor_OLS.summary() # Done, now none has a Pvalue above 0.05 so the most 
 # significant variable in our model  is the 3rd one.
 
-
+###########################################################################
 # Automatic Backward Elimination
 # In case we want to do the above problem automatically
 
