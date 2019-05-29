@@ -39,7 +39,7 @@ from sklearn.preprocessing import PolynomialFeatures
 poly_reg = PolynomialFeatures(degree = 4) # this will transform the matrix of 
 # features X into a new one called poly with not just the variables but its exponentials too
 X_poly = poly_reg.fit_transform(X) # The firs column its the constant
-
+ 
 # Create a new Linear Regression model to not confuse with the first one and fit
 # it with X_poly and y
 lin_reg_2 = LinearRegression()
