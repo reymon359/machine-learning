@@ -35,7 +35,8 @@ lin_reg.fit(X, y) # Fitting it
 
 # Fitting Polynomial Regression to the dataset 
 from sklearn.preprocessing import PolynomialFeatures
-poly_reg = PolynomialFeatures(degree = 2) #this will transform the matrix of 
+# The greater the degree the better the results
+poly_reg = PolynomialFeatures(degree = 4) # this will transform the matrix of 
 # features X into a new one called poly with not just the variables but its exponentials too
 X_poly = poly_reg.fit_transform(X) # The firs column its the constant
 
@@ -43,3 +44,33 @@ X_poly = poly_reg.fit_transform(X) # The firs column its the constant
 # it with X_poly and y
 lin_reg_2 = LinearRegression()
 lin_reg_2.fit(X_poly, y)
+
+# Visualizing the Linear Regression results
+plt.scatter(X, y, color = 'red')
+plt.plot(X, lin_reg.predict(X), color = 'blue')
+plt.title('Truth or bluff (Linear Regression)') 
+plt.xlabel('Position level')
+plt.ylabel('Salary')
+plt.show()
+
+# Visualizing the Polynomial Regression results
+plt.scatter(X, y, color = 'red')
+# We now do not use X_poly because it was already defined for a matrix and we want a new one
+plt.plot(X, lin_reg_2.predict(poly_reg.fit_transform(X)), color = 'blue') 
+plt.title('Truth or bluff (Polynomial Regression)') 
+plt.xlabel('Position level')
+plt.ylabel('Salary') 
+plt.show()
+# We can see a non linear model
+
+# Increasing precission
+X_grid = np.arange(min(X), max(X), 0.1 ) # To increase the plot resolution
+X_grid = X_grid.reshape((len(X_grid), 1))
+
+plt.scatter(X, y, color = 'red')
+# We now do not use X_poly because it was already defined for a matrix and we want a new one
+plt.plot(X, lin_reg_2.predict(poly_reg.fit_transform(X)), color = 'blue') 
+plt.title('Truth or bluff (Polynomial Regression)') 
+plt.xlabel('Position level')
+plt.ylabel('Salary') 
+plt.show()
