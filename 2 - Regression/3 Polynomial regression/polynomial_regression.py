@@ -63,14 +63,19 @@ plt.ylabel('Salary')
 plt.show()
 # We can see a non linear model
 
-# Increasing precission
-X_grid = np.arange(min(X), max(X), 0.1 ) # To increase the plot resolution
+# Polynomial Increasing precission
+X_grid = np.arange(min(X), max(X), 0.1 ) # To increase the precision
 X_grid = X_grid.reshape((len(X_grid), 1))
-
 plt.scatter(X, y, color = 'red')
-# We now do not use X_poly because it was already defined for a matrix and we want a new one
-plt.plot(X, lin_reg_2.predict(poly_reg.fit_transform(X)), color = 'blue') 
+plt.plot(X_grid, lin_reg_2.predict(poly_reg.fit_transform(X_grid)), color = 'blue') 
 plt.title('Truth or bluff (Polynomial Regression)') 
 plt.xlabel('Position level')
 plt.ylabel('Salary') 
 plt.show()
+
+# Predicting a new result with Linear Regression
+lin_reg.predict([[6.5]])  # 330378.78787879
+
+# Predicting a new result with Polynomial Regression
+lin_reg_2.predict(poly_reg.fit_transform([[6.5]]))  # 158862.45265153 (more accurate)
+ 
