@@ -26,9 +26,20 @@ sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)"""
 
-# We will now create a Linear Regression and a Polynomial regression model to
+# We will now create a Linear Regression and a Polynomial Regression model to
 # compare them and see the differences between them
 # Fitting Linear Regression to the dataset
 from sklearn.linear_model import LinearRegression
 lin_reg = LinearRegression() # Creating the object
 lin_reg.fit(X, y) # Fitting it
+
+# Fitting Polynomial Regression to the dataset 
+from sklearn.preprocessing import PolynomialFeatures
+poly_reg = PolynomialFeatures(degree = 2) #this will transform the matrix of 
+# features X into a new one called poly with not just the variables but its exponentials too
+X_poly = poly_reg.fit_transform(X) # The firs column its the constant
+
+# Create a new Linear Regression model to not confuse with the first one and fit
+# it with X_poly and y
+lin_reg_2 = LinearRegression()
+lin_reg_2.fit(X_poly, y)
