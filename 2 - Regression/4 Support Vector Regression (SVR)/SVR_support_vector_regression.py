@@ -26,6 +26,7 @@ sc_X = StandardScaler()
 sc_y = StandardScaler()
 X = sc_X.fit_transform(X)
 # y = sc_y.fit_transform(y)
+# Had this problem with the code upside "ValueError: Expected 2D array, got 1D array instead"
 y = sc_y.fit_transform(y.reshape(-1,1))
 
 # Fitting SVR to the dataset 
@@ -33,8 +34,9 @@ from sklearn.svm import SVR
 regressor = SVR(kernel = 'rbf') # rbf is the most common for non linear
 regressor.fit(X, y)
 
-# Predicting a new result with Polynomial Regression
-y_pred = regressor.predict([[6.5]])  
+# Predicting a new result 
+# As we did feature scaling we will need to adapt this too
+y_pred = sc_y.inverse_transform(regressor.predict(sc_X.transform(np.array([[6.5]]))))
 
 # Visualizing the SVR  results
 plt.scatter(X, y, color = 'red')
