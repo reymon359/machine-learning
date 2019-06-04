@@ -1,4 +1,5 @@
 # Random Forest Regression
+# it consists on applying multoples decision trees
 
 # Importing the libraries
 import numpy as np #  To work with mathematical numbers.
@@ -28,7 +29,7 @@ X_test = sc_X.transform(X_test)"""
 
 # Fitting the Random Forest Regression Model to the dataset 
 from sklearn.ensemble import RandomForestRegressor
-regressor = RandomForestRegressor(n_estimators = 10, random_state = 0)
+regressor = RandomForestRegressor(n_estimators = 300, random_state = 0)
 regressor.fit(X, y)
 
 # Predicting a new result with Random Forest Regression
