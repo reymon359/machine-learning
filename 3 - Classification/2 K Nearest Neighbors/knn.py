@@ -1,5 +1,5 @@
 # K-Nearest Neighbours (K-NN)
-
+# (btw UE=neighbor GB=neighbour)
 
 # Importing the libraries
 import numpy as np #  To work with mathematical numbers.
@@ -25,7 +25,10 @@ X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
 # Fitting the classifier to the Training Set
-# CREATE CLASSIFIER HERE
+from  sklearn.neighbors import KNeighborsClassifier
+# To use the euclidean distance from the Class we have to pass by params the metric and the p = 2.
+classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
+classifier.fit(X_train, y_train)
 
 # Predicting the Test set results
 # y_pred = vector of predictions of each of the test set observations.
@@ -53,7 +56,7 @@ for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
 # The titles
-plt.title('Logistic Regression (Training set)')
+plt.title('K-NN (Training set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
@@ -71,7 +74,7 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('Logistic Regression (Test set)')
+plt.title('K-NN (Test set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
