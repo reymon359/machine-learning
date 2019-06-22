@@ -1,4 +1,4 @@
-# Decission Tree Classification
+# Decision Tree Classification
 
 # Importing the libraries
 import numpy as np #  To work with mathematical numbers.
@@ -24,8 +24,8 @@ X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
 # Fitting the classifier to the Training Set
-from sklearn.tree import DecissionTreeClassifier
-classifier = DecissionTreeClassifier(criterion = 'entropy', random_state = 0)
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
 classifier.fit(X_train, y_train)
 
 # Predicting the Test set results
