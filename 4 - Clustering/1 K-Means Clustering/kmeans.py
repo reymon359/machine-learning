@@ -11,7 +11,7 @@ dataset = pd.read_csv('Mall_Customers.csv')
 X = dataset.iloc[:, [3, 4]].values # Independent
 
 # Using the elbow method to find the optimal number of clusters
-from sklean.cluster import kMeans
+from sklearn.cluster import KMeans
 # We will make a loop to go throught the 10 iterations
 wcss = []
 for i in range(1, 11):
@@ -21,3 +21,9 @@ for i in range(1, 11):
     # Second we will compute the wcss (within-cluster sums of squares)  and append to our wcss[] 
     wcss.append(kmeans.inertia_)
     
+# Plot
+plt.plot(range(1, 11), wcss)
+plt.title('The Elbow Method')
+plt.xlabel('Number of clusters')
+plt.ylabel('WCSS')
+plt.show()
