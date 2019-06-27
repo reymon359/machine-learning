@@ -27,3 +27,8 @@ plt.title('The Elbow Method')
 plt.xlabel('Number of clusters')
 plt.ylabel('WCSS')
 plt.show()
+
+# Now we see in the plot that the elbow optimal number of clusters is 5
+# Applying k-means to the mall dataset with 5 clusters
+kmeans = KMeans(n_clusters = 5, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 0)
+y_kmeans = kmeans.fit_predict(X)
