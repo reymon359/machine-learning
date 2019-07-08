@@ -19,6 +19,7 @@ ads_selected = [] # Ads selected on each iteration
 numbers_of_selections = [0] * d
 # Sum of rewards of the ad i up to round n
 sums_of_rewards = [0] * d
+total_reward = 0
 
 # Step 2
 # We need to compute for each version of the ad the 
@@ -37,3 +38,12 @@ for n in range(0, N):
         if upper_bound > max_upper_bound:
             max_upper_bound = upper_bound
             ad = i 
+    ads_selected.append(ad)
+    numbers_of_selections[ad] = numbers_of_selections[ad] + 1
+    reward = dataset.values[n, ad]
+    sums_of_rewards[ad] = sums_of_rewards[ad] + reward
+    total_reward = total_reward + reward
+    
+    
+    
+    
