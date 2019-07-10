@@ -34,9 +34,11 @@ for n in range(0, N):
             ad = i 
     ads_selected.append(ad)
     reward = dataset.values[n, ad]
-    if reward == 1:
-        # We implement the number of rewards of that ad
+    # We implement the number of rewards of that ad
+    if reward == 1:    
         numbers_of_rewards_1[ad] = numbers_of_rewards_1[ad] + 1
+    else:
+        numbers_of_rewards_0[ad] = numbers_of_rewards_0[ad] + 1
     total_reward = total_reward + reward
     
 # Visualizing the results
