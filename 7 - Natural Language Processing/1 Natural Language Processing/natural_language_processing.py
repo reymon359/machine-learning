@@ -34,4 +34,6 @@ review = review.split()
 # We will also apply Stemming which is about taking the route of the words. 
 ps = PorterStemmer()
 review = [ps.stem(word) for word in review if not word in set(stopwords.words('English'))]
+# Now we will join the words back
+review = ' '.join(review)
   
