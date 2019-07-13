@@ -18,6 +18,7 @@ import re
 import nltk # Library for the irrelevant words
 nltk.download('stopwords') # list of irrelevant words
 from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer # for Stemming
 # First param is what we don't want to remove
 # Second param is what to put in the removed character. We will put a space
 # Third param is what we want to clean
@@ -30,4 +31,7 @@ review = review.split()
 # Now that the review is a list of words we will go through it and remove the
 # irrelevant ones according to the nltk stopwords. We have to specify that it
 # is in english. We will also put the list in a set to faster the process.
-review = [word for word in review if not word in set(stopwords.words('English'))]
+# We will also apply Stemming which is about taking the route of the words. 
+ps = PorterStemmer()
+review = [ps.stem(word) for word in review if not word in set(stopwords.words('English'))]
+  
