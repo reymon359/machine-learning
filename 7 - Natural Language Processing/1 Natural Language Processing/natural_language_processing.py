@@ -39,3 +39,13 @@ for i in range(0, 1000):
     # Now we will join the words back
     review = ' '.join(review)
     corpus.append(review)
+    
+# -- Creating the Bag of Words model --
+# It will be like the classification model and will predict if the review is
+# positive or negative
+from sklearn.feature_extraction.text import CountVectorizer
+# The for loop done before can be done here too with some params
+cv = CountVectorizer(max_features = 1500) # Reducing the matrix of irrelevant words
+X = cv.fit_transform(corpus).toarray()
+y = dataset.iloc[:, 1].values # Dependant variable for model
+  
