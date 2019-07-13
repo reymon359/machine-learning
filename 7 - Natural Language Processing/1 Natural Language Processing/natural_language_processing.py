@@ -45,7 +45,29 @@ for i in range(0, 1000):
 # positive or negative
 from sklearn.feature_extraction.text import CountVectorizer
 # The for loop done before can be done here too with some params
-cv = CountVectorizer(max_features = 1500) # Reducing the matrix of irrelevant words
-X = cv.fit_transform(corpus).toarray()
-y = dataset.iloc[:, 1].values # Dependant variable for model
-  
+cv = CountVectorizer(max_features = 1500) # Reducing the sparsity
+X = cv.fit_transform(corpus).toarray() 
+y = dataset.iloc[:, 1].values # Dependant variable for model 
+
+# -- Applying Naive Bayes --
+# Splitting the dataset into the Training set and Test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
+# test_size is the size of the data that will go to the test set. The rest will go to the training set. (0.25 = 25%)
+
+# Fitting the classifier to the Training Set
+from sklearn.naive_bayes import GaussianNB
+classifier = GaussianNB() # No arguments, very simple
+classifier.fit(X_train, y_train)
+
+# Predicting the Test set results
+# y_pred = vector of predictions of each of the test set observations.
+y_pred = classifier.predict(X_test)
+
+# Making the confusion matrix
+# Now we will evaluate the predictions
+from sklearn.metrics import confusion_matrix 
+cm = confusion_matrix(y_test, y_pred)
+
+# Accuracy
+(55 + 91)/200
