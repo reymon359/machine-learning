@@ -52,4 +52,7 @@ classifier = Sequential() # This is the ANN we are going to build
 # output_dim = (number of nodes on input layer + number of nodes on the output layer) / 2
 classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu', input_dim = 11))
 
+# Adding the second hidden layer
+classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu'))
+
 
