@@ -55,4 +55,9 @@ classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu', inpu
 # Adding the second hidden layer
 classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu'))
 
+# Adding the output layer
+# output_dim = 1 because there is only 1 output
+# sigmoid because we only have 2 categories
+classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
+
 
