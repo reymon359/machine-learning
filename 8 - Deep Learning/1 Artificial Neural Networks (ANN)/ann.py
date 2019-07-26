@@ -60,4 +60,9 @@ classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu'))
 # sigmoid because we only have 2 categories
 classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
 
+# Compiling the ANN
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+# Fitting the ANN to the Training set
+classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 100)
 
