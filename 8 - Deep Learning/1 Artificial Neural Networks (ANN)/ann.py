@@ -45,4 +45,11 @@ import keras
 from keras.models import Sequential # To create the model
 from keras.layers import Dense # To create the layers
 
+# Initialising the ANN
+classifier = Sequential() # This is the ANN we are going to build
+
+# Adding the input layer and the first hidden layer
+# output_dim = (number of nodes on input layer + number of nodes on the output layer) / 2
+classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu', input_dim = 11))
+
 
