@@ -15,3 +15,9 @@ from keras.layers import Dense # Add the fully connected layers and a classic AN
 
 # Initialising the CNN
 classifier = Sequential()
+
+# Step 1 - Convolution layer  
+# Convolution2D: We create 32 feature detectors of 3x3 dimensions
+# input_shape: format of the images.Size 64x64 and 3 because they are coloured ones  
+# activation = 'relu' to get nonlinearity
+classifier.add(Convolution2D(32, 3, 3, input_shaipe = (64, 64, 3), activation = 'relu'))
