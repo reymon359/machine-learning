@@ -34,6 +34,12 @@ classifier.add(Conv2D(32, (3, 3), activation="relu", input_shape=(64, 64, 3)))
 # on where we have the high numbers in the feature maps.
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
+# Adding a second convolutional layer to improve the accuracy of the model. 
+# We do not need the input_shape param because we already have the inputs from the 
+# layer before.
+classifier.add(Conv2D(32, (3, 3), activation="relu"))
+classifier.add(MaxPooling2D(pool_size = (2, 2)))
+
 # Step 3 - Flattening
 # Putting all the numbers from the feature maps cells into one single vector, we still
 # keep the feature maps high numbers in this vector which represent the spacial structure
