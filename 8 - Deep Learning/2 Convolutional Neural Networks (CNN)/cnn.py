@@ -14,6 +14,10 @@ from keras.layers import MaxPooling2D # Step 2: Pooling
 from keras.layers import Flatten # Step 3: Flattening
 from keras.layers import Dense # Add the fully connected layers and a classic ANN
 
+# Adding a timer
+from timeit import default_timer as timer
+start = timer()
+
 # Initialising the CNN
 classifier = Sequential()
 
@@ -100,7 +104,14 @@ classifier.fit_generator(training_set,
                          validation_data = test_set,
                          validation_steps = 2000)
 
+# Elapsed time in minutes
+end = timer()
+print("Elapsed time in minutes")
+print(0.1*round((end - start)/6))
 
+# End of work message
+import os
+os.system('say "your program has finished"')
 
 
 
