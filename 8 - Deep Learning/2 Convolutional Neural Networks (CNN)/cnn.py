@@ -34,4 +34,21 @@ classifier.add(MaxPooling2D(pool_size = (2, 2)))
 # keep the feature maps high numbers in this vector which represent the spacial structure
 # of the input image 
 # Step 3 - Flattening
-classifier.add(Flatten())
+classifier.add(Flatten()) 
+
+# Step 4 - Full connection
+# Making a classic ANN composed of some fully connected layers. We will use the 
+# input vector as the input layer of a classic ANN which is a great classifier for
+# non linear problems and image classification is a nonlinear problem. We will create
+# a hidden layer which is the fully connected layer. And then the output layer 
+# composed just by 1 node because this is a binary outcome (cat or dog).
+# param output_dim = number of nodes in the hidden layer. It should be a number between 
+# the input nodes and the output ones but here there are too much inputs. so it must be 
+# a number that is not too small to make the classifier a good model and not too 
+# big to not make it higly compute intensive. Around 100 goes well for this model
+# but it is better if it is a power of 2 so thats why the 128.
+# param activation = 'relu' as this is a hidden layer.
+classifier.add(Dense(output_dim = 128, activation = 'relu')) # Hidden layer
+# param activation = 'sigmoid' to return the probabilities of each class. Sigmoid
+# because we have a binary outcome. for a >2 outcome we will use the Soft Max
+classifier.add(Dense(output_dim = 1, activation = 'sigmoid')) # Output layer
