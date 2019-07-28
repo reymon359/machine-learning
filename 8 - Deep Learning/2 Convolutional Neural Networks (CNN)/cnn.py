@@ -25,4 +25,13 @@ classifier.add(Convolution2D(32, 3, 3, input_shape = (64, 64, 3), activation = '
 # Step 2 - Pooling
 # Applying Max Pooling to reduce the size of future maps and therefore reduce the number
 # of nodes in future fully connected layers and improving performance
+# pool_size = (2,2). With 2x2 we keep the information and we are still being precise
+# on where we have the high numbers in the feature maps.
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
+
+# Step 3 - Flattening
+# Putting all the numbers from the feature maps cells into one single vector, we still
+# keep the feature maps high numbers in this vector which represent the spacial structure
+# of the input image 
+# Step 3 - Flattening
+classifier.add(Flatten())
