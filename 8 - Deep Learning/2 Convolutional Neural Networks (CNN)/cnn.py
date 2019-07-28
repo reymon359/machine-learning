@@ -42,7 +42,7 @@ classifier.add(Flatten())
 # non linear problems and image classification is a nonlinear problem. We will create
 # a hidden layer which is the fully connected layer. And then the output layer 
 # composed just by 1 node because this is a binary outcome (cat or dog).
-# param output_dim = number of nodes in the hidden layer. It should be a number between 
+# param output_dim = 128 number of nodes in the hidden layer. It should be a number between 
 # the input nodes and the output ones but here there are too much inputs. so it must be 
 # a number that is not too small to make the classifier a good model and not too 
 # big to not make it higly compute intensive. Around 100 goes well for this model
@@ -51,4 +51,31 @@ classifier.add(Flatten())
 classifier.add(Dense(output_dim = 128, activation = 'relu')) # Hidden layer
 # param activation = 'sigmoid' to return the probabilities of each class. Sigmoid
 # because we have a binary outcome. for a >2 outcome we will use the Soft Max
+# param output_dim = 1 Just 1 node, the predicted probability of one class. 
 classifier.add(Dense(output_dim = 1, activation = 'sigmoid')) # Output layer
+
+# Compiling the CNN
+# Compiling the whole thing by choosing stochastic gradiend descent algorithm, a
+# loss function and a performance metric.
+# param optimizer = 'adam' stochastic gradient descent algorithm.
+# param loss = 'binary_crossentropy' loss function. If we had >2 outcomes 'categorical_crossentropy'
+# param metrics = ['accuracy'] to choose the performance metric
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
