@@ -4,11 +4,12 @@
 # conda install -c conda-forge keras
 
 # Given that theere are only images will not have a data prepocessing part
+
 # Part 1 - Building the CNN
 
 # Importing the Keras libraries and packages
 from keras.models import Sequential # To inicialize the Neural Network as a sequence of layers
-from keras.layers import Convolution2D # To use in the first step; the Convolution Step. 2D because of images
+from keras.layers import Conv2D # To use in the first step; the Convolution Step. 2D because of images
 from keras.layers import MaxPooling2D # Step 2: Pooling
 from keras.layers import Flatten # Step 3: Flattening
 from keras.layers import Dense # Add the fully connected layers and a classic ANN
@@ -20,7 +21,7 @@ classifier = Sequential()
 # Convolution2D: We create 32 feature detectors of 3x3 dimensions. We will obtain 32 feature maps
 # input_shape: format of the images.Size 64x64 and 3 because they are coloured ones  
 # activation = 'relu' to get nonlinearity
-classifier.add(Convolution2D(32, 3, 3, input_shape = (64, 64, 3), activation = 'relu'))
+classifier.add(Conv2D(32, (3, 3), activation="relu", input_shape=(64, 64, 3)))
 
 # Step 2 - Pooling
 # Applying Max Pooling to reduce the size of future maps and therefore reduce the number
@@ -48,11 +49,11 @@ classifier.add(Flatten())
 # big to not make it higly compute intensive. Around 100 goes well for this model
 # but it is better if it is a power of 2 so thats why the 128.
 # param activation = 'relu' as this is a hidden layer.
-classifier.add(Dense(output_dim = 128, activation = 'relu')) # Hidden layer
+classifier.add(Dense(units = 128, activation = 'relu')) # Hidden layer
 # param activation = 'sigmoid' to return the probabilities of each class. Sigmoid
 # because we have a binary outcome. for a >2 outcome we will use the Soft Max
 # param output_dim = 1 Just 1 node, the predicted probability of one class. 
-classifier.add(Dense(output_dim = 1, activation = 'sigmoid')) # Output layer
+classifier.add(Dense(units = 1, activation = 'sigmoid')) # Output layer
 
 # Compiling the CNN
 # Compiling the whole thing by choosing stochastic gradiend descent algorithm, a
@@ -62,7 +63,42 @@ classifier.add(Dense(output_dim = 1, activation = 'sigmoid')) # Output layer
 # param metrics = ['accuracy'] to choose the performance metric
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
+# Part 2 - Fitting the CNN to the images
 
+# We will preprocess the images to prevent overfitting. If we dont, we will get a great 
+# accuracy with the training set but a lower accuracy on the test set.
+# We will use a ready to use code from the Keras documentation. https://keras.io/preprocessing/image/
+# We will use an Image Augmentation trick which will create many batches of our images 
+# and then to each bach will be applyed transformations like rotating or shearing. This
+# way we will enrich our trainset without adding more images. 
+# We will use the flow_from_directory because we have the data structured that way
+from keras.preprocessing.image import ImageDataGenerator
+
+# Transformations to apply
+train_datagen = ImageDataGenerator(rescale = 1./255,
+                                   shear_range = 0.2,
+                                   zoom_range = 0.2,
+                                   horizontal_flip = True)
+
+test_datagen = ImageDataGenerator(rescale = 1./255)
+
+# target_size must be the same as the one we specified before.
+# class_mode = 'binary' because we have a binary outcome.
+training_set = train_datagen.flow_from_directory('dataset/training_set',
+                                                 target_size = (64, 64),
+                                                 batch_size = 32,
+                                                 class_mode = 'binary')
+
+test_set = test_datagen.flow_from_directory('dataset/test_set',
+                                            target_size = (64, 64),
+                                            batch_size = 32,
+                                            class_mode = 'binary')
+
+classifier.fit_generator(training_set,
+                         steps_per_epoch = 8000,
+                         epochs = 25,
+                         validation_data = test_set,
+                         validation_steps = 2000)
 
 
 
