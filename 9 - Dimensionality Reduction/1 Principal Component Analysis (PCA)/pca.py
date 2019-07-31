@@ -24,6 +24,11 @@ X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
 # Applying PCA
+from sklearn.decomposition import PCA
+pca = PCA(n_components = 2) # Number of extracted features you want to get
+X_train = pca.fit_transform(X_train)
+X_test = pca.transform(X_test)
+explained_variance = pca.explained_variance_ratio_ # Explained variance of all principall components
 
 # Fitting Logistic Regression to the Training Set
 from sklearn.linear_model import LogisticRegression
